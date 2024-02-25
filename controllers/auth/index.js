@@ -23,10 +23,12 @@ const login = async (req, res) => {
     if (!isMatch) throw { message: 'username or password wrong', code: 400 };
 
     const payload = { user_id: user.id, name: user.name, about: user.about, phone_number: phone_number };
-
-    const token = jwt.sign(payload, 'secretKey', { expiresIn: '1d' });
-    res.status(200).json(handleRespon(200, 'success', token));
+    const key = process.env.AUTH_KEY;
+    // return res.json({ payload, key });
+    const token = await jwt.sign(payload, key, { expiresIn: '1d' });
+    res.status(200).json(handleRespon(200, 'success', { token }));
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 };

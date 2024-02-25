@@ -29,6 +29,16 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
+      room_chat_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Room_Chats',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        allowNull: false,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
